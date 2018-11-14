@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/style.css">
+
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title>Rock Paper Scissors Multiplayer</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <!-- User name input -->
+                <h1 id="RPS">ROCK PAPER SCISSORS</h1>
+                <br><br><br>
+                <div id="greetings"></div>
+                <br><br>
+                <div id="whose-turn"></div>
+                <div class="col-lg-2"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <br><br><br>
+
+        <div class="row">
+            <div class="col-lg-4" id="player-1">
+                <!-- Player 1 choices -->
+
+                <p id="player1-name"></p>
+
+                <hr>
+
+                <div id="waiting1"></div>
+
+                <div id="player1choices">
+                    <!-- choices -->
+                    <button class="choice1" id="rock1" value="rock"><img id="buts" src="assets/images/rock.jpeg"></button><br><br>
+                    <button class="choice1" id="paper1" value="paper"><img id="buts" src="assets/images/papaer.jpeg"></button><br><br>
+                    <button class="choice1" id="scissors1" value="scissors"><img id="buts" src="assets/images/scissors.jpeg"></button>
+                </div>
+                <div id="group1message"></div>
+                <hr>
+                <p id="score1">
+                    <span id="win1"></span>
+                    <span id="lose1"></span>
+                </p>
+
+            </div>
+
+            <div class="col-lg-0.5"></div>
+
+            <div class="col-lg-3" id="score">
+                <!-- Winner dispaly -->
+                <p id="winner"></p>
+            </div>
+
+            <div class="col-lg-0.5"></div>
+
+            <div class="col-lg-4" id="player-2">
+                <!-- Player 2 choices -->
+
+                <p id="player2-name"></p>
+                <hr>
+                <div id="waiting2"></div>
+
+                <div id="player2choices">
+                    <!-- choices -->
+                    <button class="choice2" id="rock2" value="rock"><img id="buts" src="assets/images/rock.jpeg"></button><br><br>
+                    <button class="choice2" id="paper2" value="paper"><img id="buts" src="assets/images/papaer.jpeg"></button><br><br>
+                    <button class="choice2" id="scissors2" value="scissors"><img id="buts" src="assets/images/scissors.jpeg"></button>
+                </div>
+                <div id="group2message"></div>
+                <hr>
+                <p id="score2">
+                    <span id="win2"></span>
+                    <span id="lose2"></span>
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <br><br><br>
+        <div class="row">
+
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-8">
+                <br><br><br>
+                <div class="row">
+                    <!-- display chats -->
+                    <div class="col-lg-12" id="chat-window"></div>
+                </div>
+                <!-- chat input -->
+                <br><br><br>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form>
+                            <input type="text" id="chat-input">
+                            <br><br>
+                            <input type="submit" id="submit-chat" value="SEND" />
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-2"></div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="assets/app.js"></script>
+</body>
+
+</html>

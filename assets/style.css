@@ -1,0 +1,122 @@
+body{
+	text-align: center;
+	background-image: url(../images/background.png);
+	padding: 100px 0 100px 0;
+	color: white;
+}
+button{
+    visibility: visible;
+}
+#buts {
+    width: 50%;
+    height: 50%;
+}
+#RPS{
+	border: 5px solid white;
+	background-color: rgba(249, 76, 151, 0.3);
+	padding: 30px;
+}
+
+#greetings{
+
+	border: 5px solid white;
+	background-color: rgba(153, 245, 34, 0.3);
+	padding: 20px;
+}
+
+#player-1, #player-2, #score {
+	
+	height: 450px;
+	border: 5px solid white;
+}
+#player-1{
+	background-color: rgba(39, 215, 250, 0.3);
+
+}
+#player-2{
+	background-color: rgba(127, 0, 255, 0.3);
+
+}
+#score{
+	background-color: rgba(249, 129, 10, 0.3);
+	margin-left: 30px;
+	margin-right: 30px;
+
+}
+
+button{
+	width: 100px;
+	color: #363234;
+
+}
+#name-input{
+	width: 50%;
+	color: #363234;
+}
+#submit-name{
+	width: 100px;
+	color: #363234;
+}
+
+
+#chat-window{
+	border: 5px solid white;
+	height: 450px;
+	overflow: scroll;
+	scroll-behavior: auto;
+	text-align: left;
+	padding-left: 20px;
+	background-color: rgba(255, 0, 255, 0.2);
+	color: white;
+	font-size: 15px;
+	
+}
+#player1choices, #player2choices{
+	height: 100px;
+
+}
+
+#group1message, #group2message{
+	height: 100px;
+	padding-bottom: 100px;
+	padding-top: 0;
+}
+#waiting1, #waiting2{
+	padding-top: 80px;
+	font-size: 20px;
+}
+
+#player1-name, #player2-name{
+
+	padding-top: 20px;
+	font-size: 15px;
+	font-weight: bold;
+
+
+}
+#score1, #score2{
+	font-weight: bold;
+	font-size: 15px;
+}
+
+#winner{
+	font-size: 30px;
+	padding-top: 200px;
+}
+#whose-turn{
+	font-size: 30px;
+	font-weight: bold;
+	color: yellow;
+
+}
+#chat-input{
+	width: 100%;
+	color: #363234;
+}
+
+#submit-chat{
+	width: 100px;
+	height: 50px;
+	color: #363234;
+
+}
