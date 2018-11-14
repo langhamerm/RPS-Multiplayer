@@ -1,15 +1,23 @@
 body{
 	text-align: center;
-	background-image: url(../images/background.png);
+	background-image: url("https://cdn.hipwallpaper.com/i/84/93/NlV1Mt.jpeg");
+	background-position: center;
 	padding: 100px 0 100px 0;
 	color: white;
 }
 button{
     visibility: visible;
 }
+.flex-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center; 
+	align-content: space-around;
+}
 #buts {
-    width: 50%;
-    height: 50%;
+    width: 100px;
+    height: 100px;
 }
 #RPS{
 	border: 5px solid white;
@@ -26,7 +34,7 @@ button{
 
 #player-1, #player-2, #score {
 	
-	height: 450px;
+	height: 550px;
 	border: 5px solid white;
 }
 #player-1{
@@ -89,14 +97,14 @@ button{
 #player1-name, #player2-name{
 
 	padding-top: 20px;
-	font-size: 15px;
+	font-size: 30px;
 	font-weight: bold;
 
 
 }
 #score1, #score2{
 	font-weight: bold;
-	font-size: 15px;
+	font-size: 25px;
 }
 
 #winner{
