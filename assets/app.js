@@ -10,7 +10,7 @@ var config = {
 };
 firebase.initializeApp(config);
 
-//database reference
+//Variables
 var database = firebase.database();
 var PlayerName = '';
 var user_1_Name = "";
@@ -30,9 +30,9 @@ var IsGameResetting = false;
 
 $(document).ready(function () {
 
-    //this object handles the score check
+    //Score Check
     var CheckWinners = {
-        //restart the game to turn 1
+        //Restart Game
         resetGame: function () {
             IsGameResetting = false;
             turns = 1;
@@ -41,91 +41,91 @@ $(document).ready(function () {
                 turn: turns
             });
         },
-        //clear the 5 seconds timeout and call the reset
+        //Clear TO and Reset
         clearDelay: function () {
             clearTimeout(delayTimer);
             CheckWinners.resetGame();
         },
-        //update winner message to winner 1 
+        //Winner Message Player 1
         updateWinner1: function () {
             $("#winner").html(user_1_Name + " wins!!");
         },
-        //update winner message to winner 1 
+        //Winner Message Player 2
         updateWinner2: function () {
             $("#winner").html(user_2_Name + " wins!!");
         },
-        //update the database to match the player score after the increases
+        //Score Update to Database
         updateScore: function () {
             database.ref("players/1").update({
                 win: player_1_win,
                 lose: player_1_lose,
-            });//database update
+            });
             database.ref("players/2").update({
                 win: player_2_win,
                 lose: player_2_lose,
-            });//database update
+            });
         },
         //update the local vairable of player scores then call the winner message update and call the score update in the database
         playerSocre: function () {
-            // If user picked rock and computer picked scissors then user wins.
+            // If Player 1 picks rock and Player 2 picks scissors then Player 1 wins.
             if (user_1_Choice == "rock" && user_2_Choice == "scissors") {
                 player_1_win++;
                 player_2_lose++;
                 CheckWinners.updateWinner1();
                 CheckWinners.updateScore();
             }
-            // if user picked rock and computer picked paper then user loses
+            // If Player 1 picks rock and Player 2 picks paper then Player 1 loses.
             if (user_1_Choice == "rock" && user_2_Choice == "paper") {
                 player_1_lose++;
                 player_2_win++;
                 CheckWinners.updateWinner2();
                 CheckWinners.updateScore();
             }
-            // if user picked scissor and computer picked rock then user loses
+            // If Player 1 picks scissors and Player 2 picks rock then Player 1 loses.
             if (user_1_Choice == "scissors" && user_2_Choice == "rock") {
                 player_1_lose++;
                 player_2_win++;
                 CheckWinners.updateWinner2();
                 CheckWinners.updateScore();
             }
-            // if user picked scissor and computer picked paper then user wins
+            // If Player 1 picks scissor and Player 2 picks paper then Player 1 wins.
             if (user_1_Choice == "scissors" && user_2_Choice == "paper") {
                 player_1_win++;
                 player_2_lose++;
                 CheckWinners.updateWinner1();
                 CheckWinners.updateScore();
             }
-            // if user picked paper and computer picked rock then user wins
+            // If Player 1 picks paper and Player 2 picks rock then Player 1 wins.
             if (user_1_Choice == "paper" && user_2_Choice == "rock") {
                 player_1_win++;
                 player_2_lose++;
                 CheckWinners.updateWinner1();
                 CheckWinners.updateScore();
             }
-            // if user picked paper and computer picked scissor then user loses				
+            // If Player 1 picks paper and Player 2 picks scissor then Player 1 loses.				
             if (user_1_Choice == "paper" && user_2_Choice == "scissors") {
                 player_1_lose++;
                 player_2_win++;
                 CheckWinners.updateWinner2();
                 CheckWinners.updateScore();
             }
-            // if user and computer picks the same
+            // If Player 1 and Player 2 pick the same then tie game.
             if (user_1_Choice == user_2_Choice) {
                 $("#winner").html("It's a tie!");
             }
 
-        }//playerScore
-    }//checkWinners
+        }
+    }
 
 
-    //DOM at the innitail Loads
+    //Initial Screen
     $("#greetings").html("<h2>Enter Your Name to Play</h2>"
         + "</br><input type='text' id='name-input'>" +
         "</br></br><input type='submit' id='submit-name'>");
     $("#waiting1").html("Waiting for player 1");
     $("#waiting2").html("Waiting for player 2");
 
-    //Hide these when both players dont exists
+    //Hide until players exist
     function hidden() {
         $("#player1choices").attr("style", "visibility:hidden");
         $("#player2choices").attr("style", "visibility:hidden");
@@ -159,11 +159,11 @@ $(document).ready(function () {
                     database.ref("players/2").onDisconnect().remove();
                     //delete the turn database				
                     database.ref("/turn").onDisconnect().remove();
-                }// else if
-            }//if
-        }//playerDisConnect
+                }
+            }
+        }
 
-        //if player 1 dont exists, empty all that related to player 1 and unhilighted both user div
+        //If Player 1 doesn't exist clear its database
         if (((snapshot.child("players").child(1).exists()) == false)) {
             $("#waiting1").html("Waiting for player 1");
             $("#winner").empty();
@@ -175,7 +175,7 @@ $(document).ready(function () {
             $("#player-2").attr("style", "border: 5px solid white");
 
         };
-        //if player 2 dont exists, empty all that related to player 2 and unhilighted both user div
+        //If Player 2 doesn't exist clear its database
         if (((snapshot.child("players").child(2).exists()) == false)) {
             $("#waiting2").html("Waiting for player 2");
             $("#winner").empty();
@@ -186,7 +186,7 @@ $(document).ready(function () {
             $("#player-1").attr("style", "border: 5px solid white");
             $("#player-2").attr("style", "border: 5px solid white");
         };
-        //if player 2 exists but not 1,, show player 2 name in his div and unhilighted both user div
+        //If Player 2 exists but not 1, show Player 2 name
         if ((snapshot.child("players").child(2).exists()) && ((snapshot.child("players").child(1).exists()) === false)) {
             $("#player2-name").html(snapshot.child("players").child(2).val().name);
             $("#waiting2").empty();
@@ -196,20 +196,19 @@ $(document).ready(function () {
             //when any player disconnect from the game
             playerDisconnect();
         };
-        //if player 1 exists but not 2,,show player 1 name in his div and unhilighted both user div
+        //If Player 1 exists but not 2, show Player 1 name
         if ((snapshot.child("players").child(1).exists()) && ((snapshot.child("players").child(2).exists()) === false)) {
             $("#waiting1").empty();
             $("#player1-name").html(snapshot.child("players").child(1).val().name);
             hidden();
             //when any player disconnect from the game
             playerDisconnect();
-            //at the player1's  browser
             if (PlayerName == snapshot.child("players").child(1).val().name) {
                 $("#greetings").html("<h2>Hello " + snapshot.child("players").child(1).val().name + ".  You are player 1!</h2>");
                 $("#win1").html("WIN: " + player_1_win);
                 $("#lose1").html("LOSE: " + player_1_lose);
             }
-            //If both players exists == we are READY to play!
+            //If both players exists, then game is ready.
         } else if ((snapshot.child("players").child(1).exists()) && ((snapshot.child("players").child(2).exists()))) {
             //Keeping track of turn for the database
             var databaseTurn = snapshot.child("turn").val();
@@ -227,30 +226,26 @@ $(document).ready(function () {
             //when any player disconnect from the game
             playerDisconnect();
 
-            //player 1's browser at player 1's turn
+            //Player 1's browser at their turn
             if ((PlayerName == snapshot.child("players").child(1).val().name) && (databaseTurn == 1)) {
                 $("#greetings").html("<h2>Hello " + snapshot.child("players").child(1).val().name + ".  You are player 1!</h2>");
                 $("#player-1").attr("style", "border: 5px solid yellow");
                 $("#player-2").attr("style", "border: 5px solid white");
                 hidden();
                 $("#player1choices").attr("style", "visibility:visible");
-                // $("#rock1").html("ROCK");
-                // $("#paper1").html("PAPER");
-                // $("#scissors1").html("SCISSORS");
                 $("#winner").empty();
                 $("#whose-turn").html("It's your turn!");
             }
-            //player 1's browser at player 2's turn
-            if ((PlayerName == snapshot.child("players").child(1).val().name) && (databaseTurn == 2)) {//after player 1 picks
+            //Player 1's browser at Player 2's turn
+            if ((PlayerName == snapshot.child("players").child(1).val().name) && (databaseTurn == 2)) {
                 $("#player-1").attr("style", "border: 5px solid white");
                 $("#player-2").attr("style", "border: 5px solid yellow");
                 hidden();
-                $("#group1message").attr("style", "visibility:visible");
-                // $("#group1message").html("Chose: " + "<h2>" + user_1_Choice + "</h2>");
+                $("#group1message").attr("style", "visibility:visible");;
                 $("#whose-turn").html("Waiting for " + user_2_Name + " to choose...");
             }
 
-            //player2's browser  at player 1's turn
+            //Player 2's browser at Player 1's turn
             if ((PlayerName == snapshot.child("players").child(2).val().name) && (databaseTurn == 1)) {
                 $("#greetings").html("<h2>Hello " + snapshot.child("players").child(2).val().name + ".  You are player 2!</h2>");
                 $("#player-1").attr("style", "border: 5px solid yellow");
@@ -259,18 +254,15 @@ $(document).ready(function () {
                 hidden();
                 $("#winner").empty();
             }
-            //player2's browser  at player 2's turn
+            //Player 2's browser at their turn
             if ((PlayerName == snapshot.child("players").child(2).val().name) && (databaseTurn == 2)) {
                 $("#player-1").attr("style", "border: 5px solid white");
                 $("#player-2").attr("style", "border: 2px solid yellow");
                 $("#whose-turn").html("It is your turn!");
                 hidden();
                 $("#player2choices").attr("style", "visibility:visible");
-                // $("#rock2").html("ROCK");
-                // $("#paper2").html("PAPER");
-                // $("#scissors2").html("SCISSORS");
             }
-            //both player's browser at turn 3 (after player 2 made a choice) and the increase score function hasn't been called
+            //Both player's browser at turn 3
             if (databaseTurn == 3 && IsGameResetting == false) {
                 IsGameResetting = true;
                 //Restating variables to match the database
@@ -280,127 +272,118 @@ $(document).ready(function () {
                 player_1_lose = snapshot.child("players").child(1).val().lose;
                 player_2_win = snapshot.child("players").child(2).val().win;
                 player_2_lose = snapshot.child("players").child(2).val().lose;
-
                 $("#player-1").attr("style", "border: 5px solid white");
                 $("#player-2").attr("style", "border: 5px solid white");
                 $("#player2choices").attr("style", "visibility:hidden");
                 $("#player1choices").attr("style", "visibility:hidden");
                 $("#group2message").attr("style", "visibility:visible");
                 $("#group1message").attr("style", "visibility:visible");
-                // $("#group1message").html("Chose: " + "<h2>" + user_1_Choice + "</h2>");
-                // $("#group2message").html("Chose: " + "<h2>" + user_2_Choice + "</h2>");
                 $("#whose-turn").empty();
-                //call the function to check for winnner
+                //Check for winner
                 CheckWinners.playerSocre();
                 // Display this page for 5 seconds and call clearDelay function to reset the game
                 delayTimer = setTimeout(CheckWinners.clearDelay, 5 * 1000);
             }
-        }// else if
-    }); //database
-    //as each user enters the game
+        }
+    });
+    //Players entering the game
     $("#submit-name").on("click", function () {
-        //graping the value of the user's name 
+        //Grab Player name input 
         var username = $("#name-input").val().trim();
-        //set the screen name to user's name
+        //Change html to Player name
         PlayerName = username;
         console.log(username);
 
-        // Read snapshot when user adds name as player,, this is where we set
+        // Read snapshot when Player adds name
         database.ref().once('value').then(function (snapshot) {
-            //if player1 doesn't exists
+            //if Player 1 doesn't exist
             if ((snapshot.child("players").child(1).exists()) === false) {
                 database.ref("players/1").set({
                     name: username,
                     win: player_1_win,
                     lose: player_1_lose
-                }); //database set
-                //if player 1 exist but not 2
+                });
+                //if Player 2 doesn't exist
             } else if ((snapshot.child("players").child(1).exists()) && ((snapshot.child("players").child(2).exists()) === false)) {
                 database.ref("players/2").set({
                     name: username,
                     win: player_2_win,
                     lose: player_2_lose
-                }); //database set
+                });
                 database.ref().update({
                     turn: turns,
                 });
-                //if both player exists
+                //If both players exist
             } else if ((snapshot.child("players").child(1).exists()) && (snapshot.child("players").child(2).exists())) {
                 alert("There are two players playing! Try again later!");
-            }//else if
-        }); //database
-    }); //on click
+            }
+        });
+    });
 
-    //if user 1 made a choice 
+    //if Player 1 makes a choice 
     $(".choice1").on("click", function () {
-        //grap the value of what choice the user made
+        //Grabs player choice
         user_1_Choice = $(this).val();
         console.log(user_1_Choice);
 
         database.ref().once('value').then(function (snapshot) {
-            //match the value of the turn to the database and //increment the turn == it will now be user 2's turn	
+            //Turn Switch	
             turns = (snapshot.child("turn").exists() ? snapshot.child("turn").val() : turns);
-            turns++; //2
-
-            //at player 1's brower , well will update the user choice in the database of the choice the user 1 just picked
+            turns++;
             if ((PlayerName == snapshot.child("players").child(1).val().name)) {
                 database.ref("players/1").update({
                     choice: user_1_Choice,
-                });//database set
-                //then update turn to 2
+                });
                 database.ref().update({
                     turn: turns
                 });
-            }//if
-        });//database
-    }); //on click
+            }
+        });
+    });
 
-    //if user 2 made a choice
+    //if Player 2 makes a choice 
     $(".choice2").on("click", function () {
-        //grap the value of what choice the user made
+        //Grabs player choice
         user_2_Choice = $(this).val();
         console.log(user_2_Choice);
 
         database.ref().once('value').then(function (snapshot) {
-            //match the value of the turn to the database and //increment the turn == it will now be turn 3		
+            //Turn Switch		
             turns = (snapshot.child("turn").exists() ? snapshot.child("turn").val() : turns);
-            turns++; //3
-
-            //at player 2's brower , well will update the user choice in the database of the choice the user 2 just picked
+            turns++;
             if ((PlayerName == snapshot.child("players").child(2).val().name)) {
                 database.ref("players/2").update({
                     choice: user_2_Choice,
-                });//database set
-                //then update turn to 3
+                });
                 database.ref().update({
                     turn: turns,
                 });
-            }//if
-        });//database
-    }); //on click
+            }
+        });
+    });
 
-    //if the any user send a message
+    //if the Player sends a message
     $("#submit-chat").on("click", function (event) {
         //prevent refresh
         event.preventDefault();
         console.log(this);
-        //grab the value of what the user type  and then empty it;
+        //Grabs input and empties
         var messages = $("#chat-input").val().trim();
         $("#chat-input").val("");
 
-        //restate the newMessage to give it's a value
+        //newMessage value change
         newMessage = PlayerName + " : " + messages;
 
-        //update each chat messages into teh database along with the time it was added
+        //Update chats in database
         database.ref("/chat").update({
             message: newMessage,
             dateAdded: firebase.database.ServerValue.TIMESTAMP
-        });//database push
-    }); //on click
+        });
+    });
 
-    //updating the chat messages in the browser's chat window by using the last one added into the database (time added)
+    //Update browser chat window
     database.ref("/chat").orderByChild("dateAdded").limitToLast(1).on("value", function (snapshot) {
         $("#chat-window").append("</br>" + snapshot.val().message + "</br>");
-    });//database
+    });
 
 });
