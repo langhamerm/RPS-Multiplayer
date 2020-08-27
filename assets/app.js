@@ -1,14 +1,17 @@
 
 // Initialize Firebase
-var config = {
-    apiKey: "AIzaSyBtBZT21-tuQoqfbA_Od5NfxRmO0_nb2Wo",
-    authDomain: "rps-multiplayer-f46cf.firebaseapp.com",
-    databaseURL: "https://rps-multiplayer-f46cf.firebaseio.com",
-    projectId: "rps-multiplayer-f46cf",
-    storageBucket: "rps-multiplayer-f46cf.appspot.com",
-    messagingSenderId: "575396277734"
-};
-firebase.initializeApp(config);
+var firebaseConfig = {
+    apiKey: "AIzaSyCjGF-g7ICBv0xIskxOznTRiwMoWB0mNts",
+    authDomain: "clicky-b94cf.firebaseapp.com",
+    databaseURL: "https://clicky-b94cf.firebaseio.com",
+    projectId: "clicky-b94cf",
+    storageBucket: "clicky-b94cf.appspot.com",
+    messagingSenderId: "675320129914",
+    appId: "1:675320129914:web:255af6d2525a28bb220ec3",
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  
 
 //Variables
 var database = firebase.database();
